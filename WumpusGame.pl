@@ -51,7 +51,7 @@ grabGold :- room(X,Y), gold(room(X,Y)), position(room(X,Y)).
 
 shootWumpus :- room(X,Y), stench(room(X,Y)), position(room(X,Y)).
 
-candidate(room(X,Y)) :- visited(room(A,B)), room(X,Y), adjacent(room(A,B),room(X,Y)).
+candidate(room(X,Y)) :- visited(room(A,B)), position(room(A,B)), room(X,Y), adjacent(room(A,B),room(X,Y)).
 
 no_pit(room(A,B)) :- room(X,Y), adjacent(room(A,B),room(X,Y)), visited(room(X,Y)), not(breeze(room(X,Y))).
 no_pit(room(A,B)) :- visited(room((A,B))).
