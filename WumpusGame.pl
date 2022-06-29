@@ -31,10 +31,9 @@ adjacent(room(X,Y),room(A,B)) :- room(X,Y), room(A,B), (X=A), Z is (Y-1), (Z=B).
 adjacent(room(X,Y),room(A,B)) :- room(X,Y), room(A,B), (B=Y), Z is (X+1), (Z=A).
 adjacent(room(X,Y),room(A,B)) :- room(X,Y), room(A,B), (B=Y), Z is (X-1), (Z=A).
 
-position(room(1,2)).
+position(room(1,1)).
 
 visited(room(1,1)).
-visited(room(1,2)).
 
 glitter(room(2,3)).
 
@@ -52,13 +51,12 @@ grabGold :- room(X,Y), gold(room(X,Y)), position(room(X,Y)).
 
 shootWumpus :- room(X,Y), stench(room(X,Y)), position(room(X,Y)).
 
-candidate(room(X,Y)) :- room(X,Y), visited(room(X,Y)), room(A,B), position(room(A,B)), adjacent(room(A,B),room(X,Y)).
+candidate(room(X,Y)) :- visited(room(A,B)), room(X,Y), adjacent(room(A,B),room(X,Y)).
 
+no_pit(room(A,B)) :- room(X,Y), adjacent(room(A,B),room(X,Y)), visited(room(X,Y)), not(breeze(room(X,Y))).
 no_pit(room(A,B)) :- visited(room((A,B))).
-no_pit(room(A,B)) :- room(X,Y), adjacent(room(A,B),room(X,Y)), not(breeze(room(X,Y))).
 
 no_wumpus(room(A,B)) :- visited(room((A,B))).
-no_wumpus(room(A,B)) :- room(X,Y), adjacent(room(A,B),room(X,Y)), not(stench(room(X,Y))).
+no_wumpus(room(A,B)) :- room(X,Y), adjacent(room(A,B),room(X,Y)), visited(room(X,Y)), not(stench(room(X,Y))).
 
-safe(room(X,Y)) :- room(X,Y), candidate(room(X,Y)), no_wumpus(room(X,Y)), no_pit(room(X,Y)).
-
+safe(room(X,Y)) :- room(X,Y), candidate(room(X,Y)), room(A,B), position(room(A,B)), no_wumpus(room(X,Y)), no_pit(room(X,Y)).
