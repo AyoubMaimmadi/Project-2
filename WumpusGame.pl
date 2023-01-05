@@ -43,9 +43,9 @@ wumpus(room(X,Y)) :- room(X,Y), room(A,B), stench(room(A,B)), adjacent(room(X,Y)
 
 pit(room(X,Y)) :- room(X,Y), room(A,B), breeze(room(A,B)), adjacent(room(X,Y),room(A,B)).
 
-% breeze(room(X,Y)) :- room(X,Y), room(A,B), pit(room(A,B)), adjacent(room(X,Y),room(A,B)).
+breeze(room(X,Y)) :- room(X,Y), room(A,B), pit(room(A,B)), adjacent(room(X,Y),room(A,B)).
 
-% stench(room(X,Y)) :- room(X,Y), room(A,B), wumpus(room(A,B)), adjacent(room(X,Y),room(A,B)).
+stench(room(X,Y)) :- room(X,Y), room(A,B), wumpus(room(A,B)), adjacent(room(X,Y),room(A,B)).
 
 grabGold :- room(X,Y), gold(room(X,Y)), position(room(X,Y)).
 
